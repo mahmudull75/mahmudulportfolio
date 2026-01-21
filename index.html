@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mahmudul Bari — Marketing Portfolio</title>
+
+  <!-- Beautiful font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#090a12;
+      --glass: rgba(255,255,255,.10);
+      --glass2: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.18);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.65);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 22px;
+      --blur: 18px;
+
+      --c1:#7c3aed;
+      --c2:#22c55e;
+      --c3:#06b6d4;
+      --c4:#f97316;
+      --c5:#ec4899;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(124,58,237,.35), transparent 55%),
+        radial-gradient(900px 650px at 80% 20%, rgba(6,182,212,.25), transparent 60%),
+        radial-gradient(1000px 700px at 30% 90%, rgba(236,72,153,.22), transparent 60%),
+        radial-gradient(900px 650px at 85% 85%, rgba(249,115,22,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* Floating blobs */
+    .blob{
+      position:fixed;
+      inset:auto;
+      width:520px;height:520px;
+      border-radius:999px;
+      filter: blur(40px);
+      opacity:.65;
+      z-index:-2;
+      animation: floaty 10s ease-in-out infinite;
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+    .b1{left:-160px; top:-140px; background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.85), transparent 60%);}
+    .b2{right:-180px; top:120px; width:560px;height:560px; background: radial-gradient(circle at 30% 30%, rgba(6,182,212,.8), transparent 60%); animation-duration: 12s;}
+    .b3{left:140px; bottom:-220px; width:620px;height:620px; background: radial-gradient(circle at 30% 30%, rgba(236,72,153,.7), transparent 60%); animation-duration: 14s;}
+
+    @keyframes floaty{
+      0%,100%{transform: translate(0,0) scale(1)}
+      50%{transform: translate(18px,-22px) scale(1.05)}
+    }
+
+    /* Subtle grid */
+    .grid{
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(circle at 35% 25%, rgba(0,0,0,.9), transparent 60%);
+      opacity:.5;
+      z-index:-3;
+      pointer-events:none;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .container{
+      width:min(1100px, 92vw);
+      margin:0 auto;
+      padding: 28px 0 80px;
+    }
+
+    /* Glass utility */
+    .glass{
+      background: linear-gradient(180deg, var(--glass), var(--glass2));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: var(--shadow);
+    }
+
+    /* Nav */
+    .nav{
+      position:sticky; top:14px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 14px;
+      z-index: 50;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center;
+      padding: 8px 10px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .logo{
+      width:38px;height:38px;border-radius:14px;
+      background: conic-gradient(from 180deg, var(--c1), var(--c3), var(--c2), var(--c5), var(--c4), var(--c1));
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 45%);
+      transform: rotate(20deg);
+    }
+    .brand h1{font-size:14px; margin:0; letter-spacing:.2px;}
+    .brand p{margin:0; font-size:12px; color:var(--muted);}
+
+    .navlinks{display:flex; gap:8px; flex-wrap:wrap;}
+    .chip{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      font-size:13px;
+      color: rgba(255,255,255,.78);
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      cursor:pointer;
+    }
+    .chip:hover{transform: translateY(-2px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20);}
+
+    /* Hero */
+    .hero{
+      margin-top: 18px;
+      padding: 22px;
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(700px 220px at 25% 0%, rgba(124,58,237,.22), transparent 60%),
+                  radial-gradient(700px 220px at 80% 10%, rgba(6,182,212,.16), transparent 60%),
+                  radial-gradient(700px 220px at 40% 100%, rgba(236,72,153,.16), transparent 60%);
+      pointer-events:none;
+    }
+    .hero > *{position:relative}
+
+    .badge{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.07);
+      color: rgba(255,255,255,.84);
+      font-size:13px;
+      width: fit-content;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(90deg, var(--c2), var(--c3));
+      box-shadow: 0 0 0 4px rgba(34,197,94,.12);
+    }
+
+    .hero h2{
+      margin: 12px 0 8px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height:1.08;
+      letter-spacing:-.6px;
+    }
+    .gradient-text{
+      background: linear-gradient(90deg, var(--c3), var(--c1), var(--c5), var(--c4));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .hero p{
+      margin:0 0 16px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height:1.6;
+      max-width: 62ch;
+    }
+
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.90);
+      font-weight: 700;
+      font-size: 14px;
+      cursor:pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-2px); background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22);}
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(6,182,212,.22), rgba(124,58,237,.22), rgba(236,72,153,.18));
+      border-color: rgba(255,255,255,.20);
+    }
+
+    /* Profile card */
+    .profile{padding: 18px; display:flex; flex-direction:column; gap: 14px; align-items:stretch;}
+    .avatar{display:flex; gap:14px; align-items:center;}
+    .photo{
+      width:76px; height:76px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.20);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 45%),
+        conic-gradient(from 180deg, rgba(6,182,212,.55), rgba(124,58,237,.55), rgba(236,72,153,.45), rgba(249,115,22,.35), rgba(6,182,212,.55));
+      overflow:hidden;
+      position:relative;
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    }
+
+    /* ✅ IMAGE SETUP:
+       Option A (Recommended): keep file name "your-photo.jpg" in same folder.
+       Option B: put image URL inside url("...") below.
+    */
+    .photo::after{
+      content:"";
+      position:absolute; inset:6px;
+      border-radius: 18px;
+      background-image: url("your-photo.jpg"); /* OR: url("https://your-image-link.com/photo.jpg") */
+      background-size: cover;
+      background-position:center;
+      background-color: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .avatar h3{margin:0; font-size:16px}
+    .avatar p{margin:4px 0 0; color:var(--muted); font-size:13px; line-height:1.35}
+
+    .quick{display:grid; grid-template-columns: repeat(2, 1fr); gap:10px;}
+    .mini{
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+    }
+    .mini b{display:block; font-size:12px; color: rgba(255,255,255,.78)}
+    .mini span{display:block; margin-top: 6px; font-size:14px; font-weight:800}
+
+    /* Sections */
+    .section{margin-top: 18px; padding: 18px;}
+    .section-header{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-bottom: 12px;}
+    .section-header h4{margin:0; font-size: 16px; letter-spacing:.2px;}
+    .section-header p{margin:0; color:var(--muted); font-size: 13px;}
+
+    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px;}
+    .card{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      position:relative;
+      overflow:hidden;
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+      min-height: 120px;
+    }
+    .card:hover{transform: translateY(-4px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.085);}
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12px; font-weight:800;
+      padding:8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      width: fit-content;
+    }
+    .tag i{width:10px;height:10px;border-radius:99px; background: linear-gradient(90deg, var(--c3), var(--c5)); display:inline-block;}
+    .card h5{margin:10px 0 6px; font-size:14px}
+    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.55}
+
+    /* Work */
+    .projects{display:grid; grid-template-columns: 1.15fr .85fr; gap: 12px; margin-top: 12px;}
+    .project{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      position:relative;
+    }
+    .project::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(500px 160px at 30% 0%, rgba(6,182,212,.22), transparent 60%),
+                  radial-gradient(500px 160px at 80% 40%, rgba(124,58,237,.20), transparent 60%);
+      pointer-events:none;
+      opacity:.8;
+    }
+    .project > *{position:relative}
+    .proj-top{display:flex; align-items:flex-start; justify-content:space-between; gap:12px;}
+    .pill{
+      font-size:12px;
+      color: rgba(255,255,255,.78);
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      white-space:nowrap;
+    }
+    .kpis{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top: 12px;}
+    .kpi{
+      padding: 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+    }
+    .kpi b{display:block; font-size:12px; color:rgba(255,255,255,.75)}
+    .kpi span{display:block; margin-top:6px; font-weight:900; font-size:16px}
+
+    /* Contact */
+    .contact-grid{display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;}
+    .contact-card{
+      padding: 16px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+    }
+    .socials{display:flex; flex-wrap:wrap; gap:10px; margin-top: 12px;}
+    .social{
+      flex: 1 1 160px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .social:hover{transform: translateY(-2px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22);}
+    .social .left{display:flex; gap:10px; align-items:center; min-width:0;}
+    .icon{
+      width:38px;height:38px;border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(90deg, rgba(6,182,212,.25), rgba(124,58,237,.25), rgba(236,72,153,.18));
+      display:grid; place-items:center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      flex:0 0 auto;
+      font-weight:900;
+    }
+    .social b{font-size:13px; display:block}
+    .social span{
+      font-size:12px; color:var(--muted);
+      display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 220px
+    }
+    .arrow{opacity:.7}
+
+    footer{margin-top: 18px; text-align:center; color: rgba(255,255,255,.55); font-size: 12px;}
+
+    /* Scroll animations */
+    .reveal{opacity:0; transform: translateY(16px) scale(.98); transition: opacity .7s ease, transform .7s ease;}
+    .reveal.show{opacity:1; transform: translateY(0) scale(1);}
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns: 1fr; }
+      .projects{grid-template-columns: 1fr;}
+      .cards{grid-template-columns: 1fr;}
+      .contact-grid{grid-template-columns: 1fr;}
+      .nav{gap:10px; flex-wrap:wrap}
+      .navlinks{justify-content:flex-start}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grid"></div>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="container">
+
+    <!-- NAV -->
+    <div class="nav glass reveal">
+      <a class="brand" href="#top" aria-label="Home">
+        <div class="logo"></div>
+        <div>
+          <h1>Mahmudul Bari</h1>
+          <p>Digital Marketer • Performance Growth</p>
+        </div>
+      </a>
+
+      <div class="navlinks">
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#skills">Skills</a>
+        <a class="chip" href="#work">Work</a>
+        <a class="chip" href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section id="top" class="hero glass reveal">
+      <div>
+        <div class="badge">
+          <span class="dot"></span>
+          Available for projects • Meta/Google Ads • Strategy
+        </div>
+
+        <h2>
+          I help brands grow with
+          <span class="gradient-text">high-converting ads</span>
+          & smart funnel strategy.
+        </h2>
+
+        <p>
+          Hi, I’m <b>Mahmudul Bari</b> — a digital marketer focused on performance, creative testing,
+          and ROI. I build campaigns that look premium and actually convert.
+          (এখানে ২–৩ লাইনে তোমার নিজের স্টোরি লিখে দাও)
+        </p>
+
+        <div class="cta-row">
+          <a class="btn primary" href="#contact">Let’s Work Together ✨</a>
+          <a class="btn" href="#work">View Case Studies →</a>
+        </div>
+      </div>
+
+      <!-- PROFILE CARD -->
+      <aside class="profile glass">
+        <div class="avatar">
+          <div class="photo" title="Mahmudul Bari Photo"></div>
+          <div>
+            <h3>Mahmudul Bari</h3>
+            <p>
+              Performance Marketer<br/>
+              Bangladesh • Remote Worldwide
+            </p>
+          </div>
+        </div>
+
+        <div class="quick">
+          <div class="mini"><b>Specialty</b><span>Ads + Funnel</span></div>
+          <div class="mini"><b>Platforms</b><span>Meta • Google</span></div>
+          <div class="mini"><b>Focus</b><span>ROI • Scale</span></div>
+          <div class="mini"><b>Contact</b><span>WhatsApp</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section glass reveal">
+      <div class="section-header">
+        <div>
+          <h4>My Story</h4>
+          <p>তোমার জার্নি ৩–৫ লাইনে লিখো</p>
+        </div>
+        <div class="pill">Glass • Colorful • Smooth</div>
+      </div>
+
+      <p style="margin:0;color:var(--muted);line-height:1.7;font-size:14px;max-width:85ch;">
+        I started marketing with a simple goal: create ads that people enjoy — and that bring real results.
+        Now I help brands with creative strategy, audience research, and conversion-focused campaigns.
+        (এটা তোমার মতো করে edit করো)
+      </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section glass reveal">
+      <div class="section-header">
+        <div>
+          <h4>Skills & Services</h4>
+          <p>What I do best</p>
+        </div>
+        <div class="pill">Strategy → Execution → Results</div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="tag"><i></i> Meta Ads</div>
+          <h5>Facebook/Instagram Campaigns</h5>
+          <p>Audience research, creative testing, scaling, retargeting, and optimization.</p>
+        </div>
+
+        <div class="card">
+          <div class="tag"><i></i> Google Ads</div>
+          <h5>Search + Display</h5>
+          <p>Keyword strategy, landing page alignment, and conversion tracking setup.</p>
+        </div>
+
+        <div class="card">
+          <div class="tag"><i></i> Funnel</div>
+          <h5>Landing Page & Copy</h5>
+          <p>High-converting structure, persuasive copy, and clear CTA strategy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work" class="section glass reveal">
+      <div class="section-header">
+        <div>
+          <h4>Case Studies</h4>
+          <p>এগুলো তোমার আসল রেজাল্ট দিয়ে বদলে দাও</p>
+        </div>
+        <div class="pill">Portfolio</div>
+      </div>
+
+      <div class="projects">
+        <div class="project">
+          <div class="proj-top">
+            <div>
+              <div class="tag"><i></i> E-commerce Growth</div>
+              <h5 style="margin:10px 0 6px;font-size:15px;">Brand Name — Product Scaling</h5>
+              <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.6;">
+                Objective: Increase sales with creative testing & retargeting. (এখানে তোমার কাজের কাহিনি লিখবে)
+              </p>
+            </div>
+            <div class="pill">Meta Ads</div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><b>ROAS</b><span>3.2x</span></div>
+            <div class="kpi"><b>CPA</b><span>↓ 28%</span></div>
+            <div class="kpi"><b>Revenue</b><span>+ 45%</span></div>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="proj-top">
+            <div>
+              <div class="tag"><i></i> Lead Generation</div>
+              <h5 style="margin:10px 0 6px;font-size:15px;">Service Business — Leads</h5>
+              <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.6;">
+                Objective: Generate quality leads with simple funnel + tracking.
+              </p>
+            </div>
+            <div class="pill">Google Ads</div>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><b>Leads</b><span>+ 120</span></div>
+            <div class="kpi"><b>CPL</b><span>↓ 22%</span></div>
+            <div class="kpi"><b>CTR</b><span>4.8%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section glass reveal">
+      <div class="section-header">
+        <div>
+          <h4>Contact</h4>
+          <p>Facebook • Instagram • LinkedIn • WhatsApp</p>
+        </div>
+        <div class="pill">Fast reply ⚡</div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h5 style="margin:0 0 8px;">Quick Message</h5>
+          <p style="margin:0;color:var(--muted);line-height:1.6;font-size:13px;">
+            Tell me about your business, budget, and goal — I’ll reply with a simple plan.
+          </p>
+
+          <div class="cta-row" style="margin-top:12px;">
+            <!-- ✅ WhatsApp: your number added -->
+            <a class="btn primary" target="_blank" rel="noopener"
+               href="https://wa.me/8801709856893?text=Hi%20Mahmudul%20Bari!%20I%20want%20to%20work%20with%20you.">
+              WhatsApp Now
+            </a>
+
+            <a class="btn" href="#contact" onclick="alert('Email button: Add your email here if you want.'); return false;">
+              Email (optional)
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h5 style="margin:0 0 8px;">My Social Links</h5>
+          <p style="margin:0;color:var(--muted);line-height:1.6;font-size:13px;">
+            Click to visit my profiles.
+          </p>
+
+          <div class="socials">
+            <!-- ✅ Your Facebook -->
+            <a class="social" target="_blank" rel="noopener" href="https://www.facebook.com/Mahmudulsecondid">
+              <div class="left">
+                <div class="icon">f</div>
+                <div>
+                  <b>Facebook</b>
+                  <span>facebook.com/Mahmudulsecondid</span>
+                </div>
+              </div>
+              <div class="arrow">↗</div>
+            </a>
+
+            <!-- ✅ Your Instagram -->
+            <a class="social" target="_blank" rel="noopener" href="https://www.instagram.com/mahmudul__75/">
+              <div class="left">
+                <div class="icon">ig</div>
+                <div>
+                  <b>Instagram</b>
+                  <span>instagram.com/mahmudul__75</span>
+                </div>
+              </div>
+              <div class="arrow">↗</div>
+            </a>
+
+            <!-- ✅ Your LinkedIn -->
+            <a class="social" target="_blank" rel="noopener" href="https://www.linkedin.com/in/mahmudul-bari-maaj-2b2000379/">
+              <div class="left">
+                <div class="icon">in</div>
+                <div>
+                  <b>LinkedIn</b>
+                  <span>linkedin.com/in/mahmudul-bari-maaj</span>
+                </div>
+              </div>
+              <div class="arrow">↗</div>
+            </a>
+
+            <!-- ✅ Your WhatsApp -->
+            <a class="social" target="_blank" rel="noopener" href="https://wa.me/8801709856893">
+              <div class="left">
+                <div class="icon">wa</div>
+                <div>
+                  <b>WhatsApp</b>
+                  <span>wa.me/8801709856893</span>
+                </div>
+              </div>
+              <div class="arrow">↗</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="reveal">
+      © <span id="year"></span> Mahmudul Bari • Glassmorphism • Smooth Motion ✨
+    </footer>
+  </div>
+
+  <script>
+    // Smooth reveal on scroll
+    const els = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add("show");
+      });
+    }, { threshold: 0.12 });
+    els.forEach(el=>io.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener("click", (e)=>{
+        const id = a.getAttribute("href");
+        if(id.length > 1){
+          e.preventDefault();
+          document.querySelector(id).scrollIntoView({behavior:"smooth", block:"start"});
+        }
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
